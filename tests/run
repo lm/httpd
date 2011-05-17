@@ -1,0 +1,15 @@
+#!/bin/bash
+
+dir=`dirname $0`
+
+if echo $dir | grep -v ^/ > /dev/null; then
+	dir=` pwd `/$dir
+fi
+
+dir=`dirname $dir`
+dir=`dirname $dir`
+
+cd $dir
+
+$dir/package > /dev/null
+gst-sunit -p Http
