@@ -212,16 +212,35 @@ Object subclass: Uri [
 		aStream
 			nextPutAll: scheme;
 			nextPutAll: '://';
-			print: authority;
+			print: authority.
+
+		self
+			displayPathOn: aStream;
+			displayQueryOn: aStream;
+			displayFragmentOn: aStream.
+	]
+
+	displayPathOn: aStream [
+		<category: 'printing'>
+
+		aStream
 			nextPut: $/;
 			nextPutAll: (percentEncoding encode: path skip: '-._~/').
+	]
 
-		query size = 0 ifFalse: [
+	displayQueryOn: aStream [
+		<category: 'printing'>
+
+		query notEmpty ifTrue: [
 			aStream
 				nextPut: $?;
 				nextPutAll: self queryAsString].
+	]
 
-		fragment isEmpty ifFalse: [
+	displayFragmentOn: aStream [
+		<category: 'printing'>
+
+		fragment notEmpty ifTrue: [
 			aStream
 				nextPut: $#;
 				nextPutAll: self fragment].
