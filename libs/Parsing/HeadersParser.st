@@ -52,11 +52,13 @@ Namespace current: Parsing [
 			line = ''] whileFalse: [
 				(header isNil not and: [line first = Character space or: [line first = Character tab]])
 					ifTrue: [
-						headers at: header name put: (header withValue: line trimSeparators)]
+						header := header withValue: header value, ' ', line trimSeparators]
 					ifFalse: [
 						header := Header fromString: line.
-						headers at: header name ifPresent: [ :v | header := v + header].
-						headers at: header name put: header].
+						headers at: header name ifPresent: [ :prevHeader |
+							header := header withValue: prevHeader value, ', ', header value]].
+
+				headers at: header name put: header.
 			].
 
 			^headers

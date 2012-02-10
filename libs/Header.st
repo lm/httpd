@@ -97,12 +97,6 @@ Object subclass: Header [
 			and: [aHeader value = value]]
 	]
 
-	+ aHeader [
-		<category: 'arithmetic'>
-
-		^self class name: name value: value, ', ', aHeader value
-	]
-
 	hash [
 		<category: 'testing'>
 
@@ -138,7 +132,7 @@ Object subclass: Header [
 	withValue: aString [
 		<category: 'copying'>
 
-		^self class name: name value: value, aString
+		^self class name: name value: aString
 	]
 
 	printOn: aStream [
